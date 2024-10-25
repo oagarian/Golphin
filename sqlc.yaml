@@ -1,0 +1,9 @@
+version: "2"
+sql:
+  - engine: "postgresql"
+    schema: "config/database/user/user_table.sql"
+    queries: "config/database/user/user_queries.sql"
+    gen:
+      go:
+        package: "database"
+        out: "internal/database"
