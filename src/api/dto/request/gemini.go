@@ -1,9 +1,9 @@
 package request 
 
-type gemini struct {
-	prompt string `json:"prompt"`
+type Gemini struct {
+	Prompt string `json:"prompt"`
 }
 
-func (g *gemini) GetPrompt() gemini {
-    return *g
+func (g *Gemini) GetPrompt() string {
+    return g.Prompt
 }

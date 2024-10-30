@@ -11,12 +11,12 @@ import (
 )
 
 func GenerateContent(prompt string) (string, error){
-    apiKey, err := environment.GetAPIKey()
+    environmentData, err := environment.Get()
 	if err!= nil {
         return "", err
     }
-    url := "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=" + apiKey
 
+    url := "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=" + environmentData.GeminiToken
     requestBody, _ := json.Marshal(map[string]interface{}{
         "contents": []map[string]interface{}{
             {

@@ -1,7 +1,9 @@
 package user
 
 import (
+	"errors"
 	"golphin/src/utils/validator"
+	"strings"
 	"github.com/google/uuid"
 )
 
@@ -55,11 +57,6 @@ func (b *builder) SetEmail(email string) *builder {
 }
 
 func (b *builder) SetPassword(password string) *builder {
-	if len(password) < 8 || len(password) > 32 {
-        b.fields = append(b.fields, "Password")
-        b.errorMessages = append(b.errorMessages, "Password must be between 8 and 32 characters")
-        return b
-    }
     if validator.IsTextBlank(password) {
         b.fields = append(b.fields, "Password")
         b.errorMessages = append(b.errorMessages, "Password cannot be blank")
@@ -67,4 +64,11 @@ func (b *builder) SetPassword(password string) *builder {
     }
     b.user.password = password
     return b
+}
+
+func (b *builder) Build() (User, error) {
+    if len(b.errorMessages) > 0 {
+        return nil, errors.New(strings.Join(b.errorMessages, "; "))
+    }
+    return b.user, nil
 }

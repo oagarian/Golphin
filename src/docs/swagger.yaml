@@ -1,0 +1,146 @@
+basePath: /
+definitions:
+  request.Gemini:
+    properties:
+      prompt:
+        type: string
+    type: object
+  response.Gemini:
+    properties:
+      content:
+        type: string
+    type: object
+host: localhost:8080
+info:
+  contact: {}
+  description: Esta é a documentação da API do meu projeto.
+  title: API Documentação
+  version: "1.0"
+paths:
+  /auth/login:
+    post:
+      consumes:
+      - application/json
+      description: Autentica um usuário com nome de usuário ou email e senha.
+      parameters:
+      - description: Nome de usuário ou email
+        in: formData
+        name: auth
+        required: true
+        type: string
+      - description: Senha do usuário
+        in: formData
+        name: password
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "401":
+          description: Unauthorized
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Realiza o login do usuário
+      tags:
+      - Auth
+  /auth/register:
+    post:
+      consumes:
+      - application/json
+      description: Cria um novo usuário no sistema com um nome de usuário, email e
+        senha.
+      parameters:
+      - description: Nome de usuário
+        in: formData
+        name: username
+        required: true
+        type: string
+      - description: Email do usuário
+        in: formData
+        name: email
+        required: true
+        type: string
+      - description: Senha do usuário
+        in: formData
+        name: password
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Cria um novo usuário
+      tags:
+      - Auth
+  /generate:
+    post:
+      consumes:
+      - application/json
+      description: Recebe um prompt e gera conteúdo correspondente utilizando um serviço.
+      parameters:
+      - description: Payload contendo o prompt
+        in: body
+        name: payload
+        required: true
+        schema:
+          $ref: '#/definitions/request.Gemini'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.Gemini'
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Gera conteúdo a partir de um prompt
+      tags:
+      - Content
+swagger: "2.0"
