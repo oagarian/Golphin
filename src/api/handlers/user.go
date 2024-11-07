@@ -5,7 +5,6 @@ import (
 	"golphin/src/domain/user"
 	"golphin/src/repository"
 	"golphin/src/utils/encrypt"
-
 	"github.com/google/uuid"
 	"github.com/labstack/echo/v4"
 )
@@ -62,8 +61,7 @@ func AuthHandler( c echo.Context) error {
 // @Tags Auth
 // @Accept json
 // @Produce json
-// @Param auth formData string true "Nome de usuário ou email"
-// @Param password formData string true "Senha do usuário"
+// @Param request body LoginRequest true "Credenciais do usuário"
 // @Success 200 {object} map[string]string
 // @Failure 400 {object} map[string]string
 // @Failure 401 {object} map[string]string

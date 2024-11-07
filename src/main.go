@@ -23,6 +23,6 @@ func main() {
 	auth := app.Group("/auth")
 	auth.POST("/register", handler.AuthHandler) 
 	auth.POST("/login", handler.LoginHandler)
-	app.GET("/swagger/*", echoSwagger.WrapHandler)
+	app.GET("/docs/*", echoSwagger.WrapHandler)
 	app.Logger.Fatal(app.Start(":8080")) 
 }
