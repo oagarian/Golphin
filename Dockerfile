@@ -1,11 +1,21 @@
-FROM golang:latest
+FROM golang:latest AS builder
 
 WORKDIR /api
 
+COPY go.mod go.sum ./
+RUN go mod download
+
 COPY . .
 
-RUN go mod tidy
+RUN go build -o app src/main.go
+
+FROM alpine:latest
+
+RUN apk --no-cache add ca-certificates
+
+WORKDIR /root/
+COPY --from=builder /api/app .
 
 EXPOSE 8080
 
-CMD ["go", "run", "src/main.go"]
+CMD ["./app"]
