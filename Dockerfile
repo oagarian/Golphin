@@ -1,7 +1,7 @@
 FROM golang:latest AS builder
 WORKDIR /api
 COPY go.mod go.sum ./
-RUN go mod downloa
+RUN go mod download
 COPY . .
 RUN go build -o app src/main.go
 
